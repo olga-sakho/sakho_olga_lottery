@@ -1,18 +1,48 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <button @click="start"> Запусти лотерею </button>
+      <hr>
+        <button v-for="random, index in randoms" :key="index">{{random}}</button>  
+        <hr>
+        <p style="color:red">{{message}}</p>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data () {
+    return {
+      randoms: [],
+      message:''
+    }
+  },
+  methods: {
+      start: function () {
+          this.randoms = []
+          this.message = ''
+                
+                function getRandomIntInclusive(min, max) {
+                  return Math.floor(Math.random() * (max - min + 1)) + min;
+                }
+                let random = getRandomIntInclusive(1,5) 
+                let random1 = getRandomIntInclusive(1,5) 
+                let random2 = getRandomIntInclusive(1,5)        
+        
+                this.randoms.push(random, random1, random2)
+                console.log(this.randoms)
+
+                let n = this.randoms[0]
+                for(var i=1;i<this.randoms.length;i++){
+                     if(n === this.randoms[i]&& n === this.randoms[i+1]){
+                          this.message = 'Поздравляю, Вы выграли приз! ! !'
+                     }
+                }        
+
+      }
   }
+
 }
 </script>
 
